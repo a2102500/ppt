@@ -1,0 +1,174 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>session和cookie有什么区别</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：刘家铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>本次分享会主要讲的是关于session和cookie的一些概念介绍以及他们之间的区别.</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>先简单介绍一下cookie</p>
+			<p>什么是cookie?cookie是一小段的文本信息.由于http是无状态的协议,所以浏览网站时, 如果服务器需要记录该用户状态,就使用response向客户端浏览器颁发一个cookie(通行证).客户端浏览器会把cookie保存起来放在本地,当浏览器再请求该网站时,浏览器会先找有没有上次留下的cookie资料,如果有浏览器把请求的网址连同该cookie一同提交给服务器,服务器检查该cookie,以此来辨认用户状态,送出特定的网页内容</p>
+			
+		</section>
+		<section>
+			<p>再简单介绍一下session</p>
+			<p>session机制是一种服务器端的机制,服务器使用一种类似散列表的结构来保存信息</p>
+			<p>当程序需要为某个客户端的请求创建一个session时,服务器首先检查这个客户端的请求里是否已经包含了一个session标识(称为session id),如果已包含则说明以前已经为此客户端创建过session,服务器就按照session id把这个session检索出来使用(检索不到会新建一个).如果客户端请求不包含session标识,则为此客户端创建一个session并且生成一个与此相关联的session id.
+session id的值应该是一个既不会重复,又不容易被找到规律用以仿造的的字符串.这个session id将被在本次响应中返回给客户端保存.</p>
+		</section>
+		<section>
+		<p>保存这个session id的方式可以采用cookie,这样在交互过程中浏览器可以自动按照规则把这个标识发送给服务器.一般这个cookie的名字都是类似于sessionid,但是cookie可以被认为的禁止,则必须由其他机制以便在cookie被禁止时仍然能够把session id传递回服务器</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>cookie的内容有什么?</p>
+			<p>cookie的内容主要包括:名字,值,过期时间,路径和域.路径和域一起构成cookie的作用范围,若不设置过期时间,则表示这个cookie的生命期为浏览器会话期间,关闭浏览器窗口cookie就消失.</p>
+			<p>这种生命期为浏览器会话期的cookie被称为会话cookie.会话cookie一般不存储在硬盘上而是保存在内存里,当然这种行为并不是规范规定的.若设置了过期时间,浏览器会把cookie保存到硬盘上,关闭后再次打开浏览器,这些cookie仍然有效直到超过设定的过期时间.</p>
+			<p>存储在硬盘上的cookie可以在不同的浏览器进程间共享,比如两个IE窗口.而对于保存在内存里的cookie,不同的浏览器有不同的处理方式</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>cookie与session的区别以及优缺点</p>
+			<p>1:cookie数据存放在客户的浏览器上，session数据放在服务器上。</p>
+			<p>2:cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。</p>
+			<p>3:session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能,考虑到减轻服务器性能方面，应当使用COOKIE。</p>
+			<p>4:单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</p>
+			<p>5:建议：将登陆信息等重要信息存放为SESSION,其他信息如果需要保留，可以放在COOKIE中</p>
+
+			
+			
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		<img src="D:\QQ图片20170715174356.png">
+        <!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\1.png">
+		<!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\2.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        <section>
+			
+		</section>
+		<section>
+			
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘家铭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
